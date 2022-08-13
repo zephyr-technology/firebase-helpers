@@ -1,6 +1,8 @@
 import { Firestore } from "firebase-admin/firestore";
 import { QR, QueryConstraint, QueryCursor } from "./types";
 
+export * as FirestoreConstraints from "./constraints";
+
 export class FirestoreUtil {
   firestore: Firestore;
 
