@@ -9,6 +9,19 @@ export class FirestoreUtil {
   }
 
   /**
+   * Removes an item's id and ref from the query result. Usually used when
+   * updating an object in firestore.
+   * @param qr Query result
+   * @returns Data without query result fields
+   */
+  queryData<T>(qr: T & QR): T {
+    const clone = { ...qr } as T & { id?: string; ref?: string };
+    delete clone.id;
+    delete clone.ref;
+    return clone;
+  }
+
+  /**
    * Applies a list of query constraints to a query.
    * @param query A collection reference or existing query
    * @param queryConstraints List of query constraints (where/orderBy)
@@ -151,7 +164,7 @@ export class FirestoreUtil {
   }
 
   /**
-   *
+   * Deletes a Firestore document.
    * @param refStr Reference to document
    * @param t Transaction object
    */
@@ -173,11 +186,11 @@ export class FirestoreUtil {
     const query = collectionRef.orderBy("__name__").limit(batchSize);
 
     return new Promise<boolean>((resolve, reject) => {
-      this.deleteQueryBatch(query, resolve).catch(reject);
+      this._deleteQueryBatch(query, resolve).catch(reject);
     });
   }
 
-  async deleteQueryBatch(
+  async _deleteQueryBatch(
     query: FirebaseFirestore.Query,
     resolve: (value: boolean) => void
   ) {
@@ -200,7 +213,7 @@ export class FirestoreUtil {
     // Recurse on the next process tick, to avoid
     // exploding the stack.
     process.nextTick(() => {
-      this.deleteQueryBatch(query, resolve);
+      this._deleteQueryBatch(query, resolve);
     });
   }
 }
