@@ -1,0 +1,38 @@
+{
+  "name": "@zephyr/firebase-helpers",
+  "version": "0.0.1",
+  "description": "Set of helper functions for Firebase",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo \"Error: no tests specified\"",
+    "prepare":"npm run build",
+    "prepublishOnly" : "npm test",
+    "preversion":"",
+    "version" : "npm run format && git add -A src",
+    "postversion" : "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zephyr-technology/firebase-helpers"
+  },
+  "keywords": [
+    "firebase"
+  ],
+  "files": [
+    "lib/**/*"
+  ],
+  "author": "Andrew Wang",
+  "license": "ISC",
+  "dependencies": {
+    "firebase-admin": "^11.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.21.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.26.0",
+    "typescript": "^4.7.4"
+  }
+}
